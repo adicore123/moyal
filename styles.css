@@ -1,3 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Heebo — אירוח עצמי (ללא Google Fonts)
+ * font-display: swap — מפחית חסימת רינדור (מדדי Lighthouse / Core Web Vitals)
+ * קבצים ב-public/fonts (מוגשים מנתיב /fonts/… בזמן ריצה וב-build)
+ */
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('fonts/heebo-v28-hebrew_latin-300.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/heebo-v28-hebrew_latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('fonts/heebo-v28-hebrew_latin-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('fonts/heebo-v28-hebrew_latin-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('fonts/heebo-v28-hebrew_latin-800.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url('fonts/heebo-v28-hebrew_latin-900.woff2') format('woff2');
+}
+
 /* Navbar glass */
 .glass-nav {
     background: rgba(255, 255, 255, 0.5);
@@ -15,6 +72,11 @@
     box-shadow: 0 4px 24px rgba(45, 55, 72, 0.06);
 }
 
+.hero-headline {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
 /* הדגשה בכותרת — קו תחתון עורכי (ללא "מריחת" רקע שבורה בשורות) */
 .text-highlight-heading {
     color: #1A202C;
@@ -24,6 +86,20 @@
     text-decoration-thickness: 0.28em;
     text-underline-offset: 0.1em;
     text-decoration-skip-ink: auto;
+}
+
+/* הדגשת המילה «הורים» בטקסט הייחודיות — בולט, חד ועדיין עדין */
+.parents-emphasis {
+    color: #1a202c;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-decoration-line: underline;
+    text-decoration-color: rgba(247, 218, 243, 0.98);
+    text-decoration-thickness: 0.3em;
+    text-underline-offset: 0.14em;
+    text-decoration-skip-ink: none;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 }
 
 /* פורטרט מוביל — מסגרת ואנימציית כניסה עדינה */
@@ -67,6 +143,86 @@
     object-position: 50% 35%;
 }
 
+/* פס יוקרה תחת פורטרט — השכלה וניסיון (בולט, קריא, מינימליסטי) */
+.therapist-credentials {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 1rem 1.125rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    text-align: start;
+    border-radius: 1.125rem;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(208, 203, 242, 0.5);
+    box-shadow:
+        0 1px 2px rgba(26, 32, 44, 0.04),
+        0 8px 24px -8px rgba(208, 203, 242, 0.35);
+    border-inline-start: 3px solid rgba(208, 203, 242, 0.95);
+}
+
+@media (min-width: 768px) {
+    .therapist-credentials {
+        padding: 1.125rem 1.25rem;
+        gap: 0.95rem;
+    }
+}
+
+.therapist-credentials__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 0;
+}
+
+.therapist-credentials__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-top: 0.125rem;
+    border-radius: 0.625rem;
+    background: rgba(208, 203, 242, 0.4);
+    color: #1a202c;
+}
+
+.therapist-credentials__icon--alt {
+    background: rgba(247, 218, 243, 0.55);
+}
+
+.therapist-credentials__text {
+    flex: 1;
+    min-width: 0;
+    font-size: clamp(0.98rem, 2.4vw, 1.125rem);
+    font-weight: 600;
+    color: #1a202c;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+}
+
+/* מרכוז במובייל כשהעמודה ממורכזת */
+@media (max-width: 767px) {
+    .therapist-credentials {
+        text-align: center;
+        max-width: 22rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .therapist-credentials__item {
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    .therapist-credentials__text {
+        text-align: start;
+        flex: 0 1 auto;
+        max-width: 16rem;
+    }
+}
+
 /* רקעי תמונה מלאים ב-Hero וב-About — מילוי קנבס ללא רווחים */
 .hero-photo-img,
 .about-photo-img {
@@ -100,6 +256,26 @@
     box-shadow:
         0 20px 40px -15px rgba(26, 32, 28, 0.12),
         0 8px 20px -10px rgba(26, 32, 28, 0.08);
+}
+
+/* כרטיס מודגש — סעיף ממ"ד באזור "למה לבחור בקליניקה?" */
+.why-card-featured {
+    box-shadow:
+        0 12px 40px -10px rgba(208, 203, 242, 0.65),
+        0 0 0 2px rgba(208, 203, 242, 0.95),
+        0 25px 50px -12px rgba(26, 32, 28, 0.12);
+}
+
+@media (min-width: 768px) {
+    .why-card-featured {
+        transform: scale(1.02);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .why-card-featured {
+        transform: none;
+    }
 }
 
 /* Floating CTA pulse ring */

@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite';
-import { resolve, dirname, join } from 'path';
+import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { copyFileSync, existsSync } from 'fs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+/**
+ * Vite מאחד את נכסי הפרונט: HTML רב-דפים, PostCSS+Tailwind, ESM, ואופטימיזציית production.
+ * ללא CDN — הכל נשלף מ-node_modules ונארז ל-dist.
+ */
 export default defineConfig({
     root: '.',
     base: './',
@@ -19,17 +22,4 @@ export default defineConfig({
             },
         },
     },
-    plugins: [
-        {
-            name: 'copy-main-js-to-dist',
-            closeBundle() {
-                const distDir = join(__dirname, 'dist');
-                const srcFile = join(__dirname, 'main.js');
-                const destFile = join(distDir, 'main.js');
-                if (existsSync(distDir) && existsSync(srcFile)) {
-                    copyFileSync(srcFile, destFile);
-                }
-            },
-        },
-    ],
 });
