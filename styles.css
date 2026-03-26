@@ -88,18 +88,296 @@
     text-decoration-skip-ink: auto;
 }
 
-/* הדגשת המילה «הורים» בטקסט הייחודיות — בולט, חד ועדיין עדין */
-.parents-emphasis {
-    color: #1a202c;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    text-decoration-line: underline;
-    text-decoration-color: rgba(247, 218, 243, 0.98);
-    text-decoration-thickness: 0.3em;
-    text-underline-offset: 0.14em;
-    text-decoration-skip-ink: none;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+/* Accessibility FAB - Bottom Left, above WhatsApp */
+#a11y-fab {
+    position: fixed;
+    bottom: 5.5rem;
+    start: 1.5rem;
+    z-index: 104;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid #D0CBF2;
+    box-shadow: 0 4px 20px rgba(45, 55, 72, 0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#a11y-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(45, 55, 72, 0.2);
+}
+
+#a11y-fab:focus {
+    outline: 2px solid #1F75ED;
+    outline-offset: 2px;
+}
+
+#a11y-fab[data-lucide] {
+    color: #1A202C;
+}
+
+/* Accessibility Panel - Glass-morphism drawer */
+#a11y-panel {
+    position: fixed;
+    bottom: 8.5rem;
+    start: 1.5rem;
+    z-index: 105;
+    width: 17rem;
+    max-height: calc(100vh - 10rem);
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 1rem;
+    border: 1px solid rgba(208, 203, 242, 0.5);
+    box-shadow: 0 8px 32px rgba(45, 55, 72, 0.12);
+    transform: translateY(0.75rem) scale(0.96);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#a11y-panel.is-open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#a11y-panel::-webkit-scrollbar {
+    width: 0.375rem;
+}
+
+#a11y-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#a11y-panel::-webkit-scrollbar-thumb {
+    background: rgba(208, 203, 242, 0.6);
+    border-radius: 0.25rem;
+}
+
+/* Accessibility Panel Backdrop */
+#a11y-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 104;
+    background: transparent;
+    pointer-events: none;
+    transition: background 0.2s ease;
+}
+
+#a11y-backdrop.is-visible {
+    background: rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+}
+
+/* A11y Panel Internals */
+.a11y-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem 0.75rem;
+    border-bottom: 1px solid rgba(208, 203, 242, 0.4);
+}
+
+.a11y-panel-header h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1A202C;
+}
+
+.a11y-close-btn {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #2D3748;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.a11y-close-btn:hover {
+    background: rgba(208, 203, 242, 0.4);
+}
+
+.a11y-close-btn:focus {
+    outline: 2px solid #1F75ED;
+    outline-offset: 1px;
+}
+
+.a11y-panel-content {
+    padding: 0.75rem 1rem 1rem;
+}
+
+.a11y-section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.a11y-font-controls {
+    display: flex;
+    gap: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+.a11y-chip {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(208, 203, 242, 0.6);
+    background: white;
+    color: #1A202C;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.a11y-chip:hover {
+    background: rgba(208, 203, 242, 0.3);
+    border-color: #D0CBF2;
+}
+
+.a11y-chip:focus {
+    outline: 2px solid #1F75ED;
+    outline-offset: 1px;
+}
+
+.a11y-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.625rem;
+    border: 1px solid rgba(208, 203, 242, 0.4);
+    background: white;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.a11y-toggle-row:hover {
+    background: rgba(247, 218, 243, 0.2);
+    border-color: #F7DAF3;
+}
+
+.a11y-toggle-row:focus-within {
+    outline: 2px solid #1F75ED;
+    outline-offset: 1px;
+}
+
+.a11y-toggle-row[aria-pressed="true"] {
+    background: rgba(208, 203, 242, 0.25);
+    border-color: #D0CBF2;
+}
+
+.a11y-toggle-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.a11y-toggle-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1A202C;
+}
+
+.a11y-toggle-desc {
+    font-size: 0.7rem;
+    color: #718096;
+    margin-top: 0.125rem;
+}
+
+.a11y-toggle-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.25rem;
+    border: 2px solid #CBD5E0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.a11y-toggle-row[aria-pressed="true"] .a11y-toggle-indicator {
+    background: #D0CBF2;
+    border-color: #D0CBF2;
+}
+
+.a11y-toggle-indicator svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: #1A202C;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.a11y-toggle-row[aria-pressed="true"] .a11y-toggle-indicator svg {
+    opacity: 1;
+}
+
+.a11y-reset-btn {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    border: 2px solid rgba(208, 203, 242, 0.7);
+    background: white;
+    color: #1A202C;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.75rem;
+    transition: all 0.15s ease;
+}
+
+.a11y-reset-btn:hover {
+    background: rgba(247, 218, 243, 0.3);
+    border-color: #F7DAF3;
+}
+
+.a11y-reset-btn:focus {
+    outline: 2px solid #1F75ED;
+    outline-offset: 2px;
+}
+
+/* Accessibility Filters applied to #site-content */
+#site-content.a11y-grayscale {
+    filter: grayscale(100%);
+}
+
+#site-content.a11y-high-contrast {
+    filter: contrast(140%);
+}
+
+#site-content.a11y-readable-font {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+#site-content.a11y-links-highlight a:not(.a11y-exclude) {
+    outline: 2px solid #1F75ED !important;
+    outline-offset: 2px !important;
+    border-radius: 2px;
+}
+
+/* Ensure fixed elements stay above filters (filters on wrapper only) */
+.fixed {
+    position: fixed;
 }
 
 /* פורטרט מוביל — מסגרת ואנימציית כניסה עדינה */

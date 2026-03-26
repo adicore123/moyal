@@ -20,6 +20,7 @@ export default {
                     text: '#2D3748',
                     heading: '#1A202C',
                     phone: '#1F75ED',
+                    'phone-hover': '#1A66CC',
                     wa: '#25D366',
                     'wa-hover': '#20BA56',
                     'wa-teal': '#128C7E',

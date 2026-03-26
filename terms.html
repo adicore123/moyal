@@ -11,6 +11,9 @@
 </head>
 <body class="bg-brand-bg text-brand-text font-sans antialiased overflow-x-hidden">
 
+    <!-- Root wrapper for outside click detection -->
+    <div id="a11y-root"></div>
+
     <nav class="glass-nav fixed w-full z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -103,39 +106,78 @@
                 </div>
             </div>
         </footer>
-    </div>
+    </div><!-- /#site-content -->
 
-    <div id="a11y-backdrop" class="a11y-backdrop fixed inset-0 z-[100] bg-black/25 opacity-0 pointer-events-none transition-opacity duration-200 ease-out" aria-hidden="true"></div>
-    <div id="a11y-root" class="fixed bottom-[7.5rem] start-6 z-[102] flex w-14 flex-col items-center" lang="he">
-        <div id="a11y-panel" class="a11y-panel glass-card absolute bottom-[calc(100%+0.5rem)] start-0 w-[min(calc(100vw-2rem),19rem)] max-h-[min(70vh,28rem)] overflow-y-auto rounded-2xl border border-white/70 shadow-xl text-start origin-bottom" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title" aria-hidden="true">
-            <div class="p-4 border-b border-brand-text/10 flex items-center justify-between gap-2">
-                <h2 id="a11y-panel-title" class="text-base font-bold text-brand-heading">נגישות</h2>
-                <button type="button" id="a11y-close" class="rounded-lg p-2 text-brand-text hover:bg-brand-bg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-lavender" aria-label="סגור תפריט נגישות">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <!-- Accessibility FAB - Bottom Left -->
+    <button id="a11y-fab" type="button" aria-label="פתח תפריט נגישות" aria-expanded="false" class="focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-phone focus-visible:ring-offset-2">
+        <i data-lucide="accessibility" class="w-6 h-6"></i>
+    </button>
+
+    <!-- Accessibility Panel Backdrop -->
+    <div id="a11y-backdrop" aria-hidden="true"></div>
+
+    <!-- Accessibility Panel - Glass-morphism Drawer -->
+    <div id="a11y-panel" role="dialog" aria-labelledby="a11y-title" aria-hidden="true">
+        <div class="a11y-panel-header">
+            <h3 id="a11y-title" class="text-sm font-bold text-brand-heading">נגישות</h3>
+            <button id="a11y-close" type="button" class="a11y-close-btn focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-phone" aria-label="סגור תפריט נגישות">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="a11y-panel-content">
+            <p class="a11y-section-title">גודל טקסט</p>
+            <div class="a11y-font-controls">
+                <button type="button" id="a11y-font-down" class="a11y-chip focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-phone" aria-label="הקטנת טקסט">א−</button>
+                <button type="button" id="a11y-font-reset" class="a11y-chip focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-phone" aria-label="גודל טקסט ברירת מחדל">100%</button>
+                <button type="button" id="a11y-font-up" class="a11y-chip focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-phone" aria-label="הגדלת טקסט">א+</button>
+            </div>
+
+            <p class="a11y-section-title">התאמות ראייה</p>
+            <div class="space-y-2">
+                <button type="button" id="a11y-toggle-grayscale" class="a11y-toggle-row" aria-pressed="false" data-a11y-toggle="grayscale">
+                    <span class="a11y-toggle-info">
+                        <span class="a11y-toggle-label">גווני אפור</span>
+                        <span class="a11y-toggle-desc">הצגת האתר ללא צבע</span>
+                    </span>
+                    <span class="a11y-toggle-indicator" aria-hidden="true">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    </span>
+                </button>
+                <button type="button" id="a11y-toggle-contrast" class="a11y-toggle-row" aria-pressed="false" data-a11y-toggle="high-contrast">
+                    <span class="a11y-toggle-info">
+                        <span class="a11y-toggle-label">ניגודיות גבוהה</span>
+                        <span class="a11y-toggle-desc">הדגשת ניגוד בתוכן</span>
+                    </span>
+                    <span class="a11y-toggle-indicator" aria-hidden="true">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    </span>
+                </button>
+                <button type="button" id="a11y-toggle-readable" class="a11y-toggle-row" aria-pressed="false" data-a11y-toggle="readable-font">
+                    <span class="a11y-toggle-info">
+                        <span class="a11y-toggle-label">גופן קריא</span>
+                        <span class="a11y-toggle-desc">גופן מערכת פשוט</span>
+                    </span>
+                    <span class="a11y-toggle-indicator" aria-hidden="true">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    </span>
+                </button>
+                <button type="button" id="a11y-toggle-links" class="a11y-toggle-row" aria-pressed="false" data-a11y-toggle="links-highlight">
+                    <span class="a11y-toggle-info">
+                        <span class="a11y-toggle-label">הדגשת קישורים</span>
+                        <span class="a11y-toggle-desc">מסגרת ברורה לקישורים</span>
+                    </span>
+                    <span class="a11y-toggle-indicator" aria-hidden="true">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    </span>
                 </button>
             </div>
-            <div class="p-4 space-y-4 text-sm text-brand-text">
-                <div>
-                    <p class="font-semibold text-brand-heading mb-2">גודל טקסט</p>
-                    <div class="flex flex-wrap gap-2">
-                        <button type="button" id="a11y-font-down" class="a11y-btn a11y-chip" aria-label="הקטנת טקסט">א−</button>
-                        <button type="button" id="a11y-font-reset" class="a11y-btn a11y-chip" aria-label="גודל טקסט ברירת מחדל">100%</button>
-                        <button type="button" id="a11y-font-up" class="a11y-btn a11y-chip" aria-label="הגדלת טקסט">א+</button>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <button type="button" id="a11y-toggle-grayscale" class="a11y-btn a11y-row w-full text-start" aria-pressed="false" data-a11y-toggle="grayscale"><span class="font-medium text-brand-heading">גווני אפור</span><span class="text-xs text-brand-text block">הצגת האתר ללא צבע</span></button>
-                    <button type="button" id="a11y-toggle-contrast" class="a11y-btn a11y-row w-full text-start" aria-pressed="false" data-a11y-toggle="high-contrast"><span class="font-medium text-brand-heading">ניגודיות גבוהה</span><span class="text-xs text-brand-text block">הדגשת ניגוד בתוכן האתר</span></button>
-                    <button type="button" id="a11y-toggle-readable" class="a11y-btn a11y-row w-full text-start" aria-pressed="false" data-a11y-toggle="readable-font"><span class="font-medium text-brand-heading">גופן קריא</span><span class="text-xs text-brand-text block">גופן מערכת פשוט</span></button>
-                    <button type="button" id="a11y-toggle-links" class="a11y-btn a11y-row w-full text-start" aria-pressed="false" data-a11y-toggle="links-highlight"><span class="font-medium text-brand-heading">הדגשת קישורים</span><span class="text-xs text-brand-text block">מסגרת ברורה לכל הקישורים</span></button>
-                </div>
-                <button type="button" id="a11y-reset-all" class="a11y-btn w-full rounded-xl border-2 border-brand-lavender/60 py-3 font-semibold text-brand-heading hover:bg-brand-lavender/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-lavender">איפוס כל ההגדרות</button>
-            </div>
+
+            <button type="button" id="a11y-reset-all" class="a11y-reset-btn focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-phone">
+                איפוס הגדרות
+            </button>
         </div>
-        <button type="button" id="a11y-fab" class="a11y-fab group relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-heading text-white shadow-premium ring-2 ring-white/90 transition-transform duration-200 hover:opacity-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-lavender" aria-expanded="false" aria-controls="a11y-panel" aria-label="פתח תפריט נגישות" title="נגישות">
-            <i data-lucide="accessibility" class="a11y-fab-icon h-7 w-7" aria-hidden="true"></i>
-        </button>
     </div>
+
     <div class="fixed bottom-6 end-6 z-[103] group">
         <div class="absolute inset-0 border border-brand-phone rounded-full animate-pulseRing"></div>
         <a href="tel:0508917898" aria-label="התקשרי אליי" class="relative w-16 h-16 bg-brand-phone rounded-full flex items-center justify-center shadow-premium hover:opacity-90 transition-opacity duration-300">
