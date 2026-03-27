@@ -185,7 +185,12 @@ function initA11yPanel() {
 
     document.addEventListener('mousedown', function (e) {
         if (!open) return;
-        if (root && root.contains(e.target)) return;
+        const t = e.target;
+        // a11y-root ריק ב-HTML; הפאנל וה-FAB מחוצה לו — בלי הבדיקות האלה כל לחיצה על
+        // כפתורי הנגישות סוגרת את הפאנל ב-mousedown לפני שה-click מפעיל את הפעולה.
+        if (root && root.contains(t)) return;
+        if (panel.contains(t)) return;
+        if (fab.contains(t)) return;
         setOpen(false);
     });
 
