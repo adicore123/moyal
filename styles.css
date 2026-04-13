@@ -499,14 +499,14 @@
     }
 
     .therapist-credentials__item {
-        justify-content: center;
+        justify-content: flex-start;
         flex-direction: row;
+        width: 100%;
     }
 
     .therapist-credentials__text {
         text-align: start;
-        flex: 0 1 auto;
-        max-width: 16rem;
+        flex: 1;
     }
 }
 
